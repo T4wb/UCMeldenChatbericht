@@ -8,6 +8,6 @@ namespace UCMeldenChatbericht.Interfaces
 {
     interface IChat
     {
-        List<String[]> getMessages();
+        List<String[]> getMessages(); // chat_Id
     }
 }

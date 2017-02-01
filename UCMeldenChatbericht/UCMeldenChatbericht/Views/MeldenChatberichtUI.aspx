@@ -9,17 +9,20 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
-    </div>
-        <p>
-            <asp:DropDownList ID="ddMessage" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddMessage_SelectedIndexChanged" ViewStateMode="Enabled">
+            <asp:Label ID="lblMessageStatic" runat="server" Text="Message: "></asp:Label>
+            <asp:DropDownList ID="ddMessage" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddMessage_SelectedIndexChanged" ViewStateMode="Enabled" AppendDataBoundItems="True">
             </asp:DropDownList>
-            <asp:Label ID="lblUserName" runat="server" Text="Label" BorderStyle="None" ViewStateMode="Enabled"></asp:Label>
-        </p>
-        <p>
+    </div>
+        <div>
+            <asp:Label ID="lblUserStatic" runat="server" Text="UserName: "></asp:Label>
+            <asp:Label ID="lblUserName" runat="server" Text="No user is selected" BorderStyle="None" ViewStateMode="Enabled"></asp:Label>
+        </div>
+
+        <div>
+            <asp:Label ID="lblReasonStatic" runat="server" Text="Reason: "></asp:Label>
             <asp:TextBox ID="tbReason" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-        </p>
-        <asp:Button ID="btnSubmitReport" runat="server" OnClick="selectSubmitReport" Text="Button" />
+        </div>
+        <asp:Button ID="btnSubmitReport" runat="server" OnClick="selectSubmitReport" Text="Submit Report" />
     </form>
 </body>
 </html>

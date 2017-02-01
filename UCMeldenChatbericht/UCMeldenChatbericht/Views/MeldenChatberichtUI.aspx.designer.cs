@@ -22,6 +22,15 @@ namespace UCMeldenChatbericht.Views {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// lblMessageStatic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageStatic;
+        
+        /// <summary>
         /// ddMessage control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace UCMeldenChatbericht.Views {
         protected global::System.Web.UI.WebControls.DropDownList ddMessage;
         
         /// <summary>
+        /// lblUserStatic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserStatic;
+        
+        /// <summary>
         /// lblUserName control.
         /// </summary>
         /// <remarks>
@@ -38,6 +56,15 @@ namespace UCMeldenChatbericht.Views {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserName;
+        
+        /// <summary>
+        /// lblReasonStatic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReasonStatic;
         
         /// <summary>
         /// tbReason control.

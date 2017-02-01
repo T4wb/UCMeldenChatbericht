@@ -8,8 +8,6 @@ using System.Web.UI.WebControls;
 using UCMeldenChatbericht.Controllers;
 using UCMeldenChatbericht.Interfaces;
 
-// Opmerking: ddUser is misschien niet nodig want het bericht wordt opgehaald: gestript op User_Id + message_Id
-
 namespace UCMeldenChatbericht.Views
 {
     public partial class MeldenChatberichtUI : System.Web.UI.Page
@@ -32,10 +30,11 @@ namespace UCMeldenChatbericht.Views
                 ddMessage.DataSource = messages.Select(x => new { Message = x[0], Message_Id = x[1], User_Id = x[2] });
                 ddMessage.DataTextField = "Message";
                 ddMessage.DataBind();
-                // ddMessage.Items.Insert(0, new ListItem("SelectItem", "")); // To Do: toevoegen standaard default
+                ddMessage.Items.Insert(0, new ListItem("Select an Item", "")); // To Do: toevoegen standaard default zonder onderdeel te zijn van List
+
                 inputUser = new Dictionary<string, string>()
                 {
-                    { "user_Id", ""}, // Deze is niet weg te schrijven naar de db.
+                    { "user_Id", ""}, // Deze is niet weg te schrijven naar de db. Haal hierbij User uit db
                     { "message_Id", ""},
                     { "reason", ""},
                     { "reported_User_Id", ""},
@@ -57,7 +56,7 @@ namespace UCMeldenChatbericht.Views
         // Event handler
         protected void ddMessage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblUserName.Text = messages[ddMessage.SelectedIndex][1]; // shows userName in lblUserName => nu is er alleen een User_Id, via een interface moet een userName opgehaald kunnen worden.
+            lblUserName.Text = (ddMessage.SelectedIndex != 0) ? (messages[ddMessage.SelectedIndex-1][1]) : "No user is selected";
         }
 
         // 
@@ -68,23 +67,37 @@ namespace UCMeldenChatbericht.Views
             if (ddMessage.SelectedIndex == 0)
             {
                 // Melding: No ddMessage is selected!
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No user has been selected. Please select one.')", true);
             }
-            if (string.IsNullOrWhiteSpace(tbReason.Text))
+            else if (string.IsNullOrWhiteSpace(tbReason.Text))
             {
                 // Melding: Reason is Empty!
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No reason has been selected. Please select one.')", true);
             }
+            else
+            {
+                // prepare report // Refactor: dit in BU doen?
+                inputUser["user_Id"] = messages[ddMessage.SelectedIndex - 1][1];
+                inputUser["message_Id"] = messages[ddMessage.SelectedIndex - 1][2];
+                inputUser["reason"] = tbReason.Text;
+                inputUser["type"] = "Chatbericht";
+                inputUser["reported_User_Id"] = "3"; // To Do: Ophalen uit sessie?
 
-            // prepare report
-            inputUser["user_Id"] = messages[ddMessage.SelectedIndex][1];
-            inputUser["message_Id"] = messages[ddMessage.SelectedIndex][2];
-            inputUser["reason"] = tbReason.Text;
-            inputUser["type"] = "Chatbericht"; 
-            inputUser["reported_User_Id"] = "3"; // To Do: Ophalen uit sessie?
+                // send Report van CC
+                bool createReportStatus = meldenChatBerichtCC.sendReport(inputUser);
 
-            // send Report van CC
-            meldenChatBerichtCC.sendReport(inputUser);
+                // notifications komen hier
+                if (createReportStatus)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('This user has been reported. Press Ok to close the window.')", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Writing to DB failed. Please try again or contact an employee.')", true);
+                }
+                
+                // To Do: close window and return to the previous window.
+            } 
         }
-
-
     }
 }

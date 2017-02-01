@@ -15,14 +15,14 @@ namespace UCMeldenChatbericht.Controllers
         IChat Ichat = new demoCodeInterface(); // test
 
         // 
-        public List<String[]> showMessages() // return: Message[] 
+        public List<String[]> showMessages() 
         {
             List<string[]> messages = Ichat.getMessages();
             return messages;
         }
 
         // 
-        public void sendReport(Dictionary<String, String> inputUser) // uit User Interface: User ophalen. Kan dit ook via showMessages()
+        public bool sendReport(Dictionary<String, String> inputUser) // uit User Interface: User ophalen. Kan dit ook via showMessages()?
         {
             //
             report.message_Id = inputUser["message_Id"];
@@ -32,7 +32,8 @@ namespace UCMeldenChatbericht.Controllers
             report.user_Id = inputUser["user_Id"]; // hoe werkt dit? Dit is niet weg te schrijven naar de db! Deze verwacht een User. Hoe is deze op te halen?
 
             //
-            report.createReport();
+            bool createReportStatus = report.createReport();
+            return createReportStatus;
         }
     }
 }
