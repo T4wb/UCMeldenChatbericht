@@ -12,7 +12,7 @@ namespace UCMeldenChatbericht.Controllers
     {
         //
         Report report = new Report();
-        IChat Ichat = new demoCodeInterface(); // test
+        IChat Ichat = new demoCodeInterface(); // This for testing only. In productie instantie maken van werkelijke IChat
 
         // 
         public List<String[]> showMessages() 
@@ -22,17 +22,9 @@ namespace UCMeldenChatbericht.Controllers
         }
 
         // 
-        public bool sendReport(Dictionary<String, String> inputUser) // uit User Interface: User ophalen. Kan dit ook via showMessages()?
+        public bool sendReport(Dictionary<String, String> inputUser) // uit Interface van User: User ophalen. Uit showMessages haal je het ID op, vervolgens roep je wanneer je createReport uitvoert de Interface aan aan met de user_Id als argument.
         {
-            //
-            report.message_Id = inputUser["message_Id"];
-            report.Reason = inputUser["reason"];
-            report.Reported_User_Id = inputUser["reported_User_Id"];
-            report.Type = inputUser["type"];
-            report.user_Id = inputUser["user_Id"]; // hoe werkt dit? Dit is niet weg te schrijven naar de db! Deze verwacht een User. Hoe is deze op te halen?
-
-            //
-            bool createReportStatus = report.createReport();
+            bool createReportStatus = report.createReport(inputUser);
             return createReportStatus;
         }
     }

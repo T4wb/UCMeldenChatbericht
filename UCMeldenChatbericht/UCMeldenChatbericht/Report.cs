@@ -16,9 +16,9 @@ namespace UCMeldenChatbericht.Models
     {
         public int Id { get; set; }
         public string Reason { get; set; }
-        public string message_Id { get; set; }
-        public string Reported_User_Id { get; set; }
+        public string MessageID { get; set; }
+        public string ReportedUserID { get; set; }
         public string Type { get; set; }
-        public string user_Id { get; set; }
+        public string ReportingUserID { get; set; }
     }
 }

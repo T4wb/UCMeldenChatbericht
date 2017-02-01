@@ -258,6 +258,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Views\ChatTestUI.aspx" />
     <Content Include="Views\MeldenChatberichtUI.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -461,6 +462,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChatTestUI.aspx.cs">
+      <DependentUpon>ChatTestUI.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ChatTestUI.aspx.designer.cs">
+      <DependentUpon>ChatTestUI.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\MeldenChatberichtUI.aspx.cs">
       <DependentUpon>MeldenChatberichtUI.aspx</DependentUpon>

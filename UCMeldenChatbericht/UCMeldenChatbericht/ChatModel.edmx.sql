@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/01/2017 00:46:28
+-- Date Created: 02/01/2017 23:22:42
 -- Generated from EDMX file: C:\Users\Lenovo\Source\Repos\UCMeldenChatbericht\UCMeldenChatbericht\UCMeldenChatbericht\ChatModel.edmx
 -- --------------------------------------------------
 
@@ -25,9 +25,6 @@ IF OBJECT_ID(N'[dbo].[FK_UserChat_Chat]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ChatMessage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[MessageSet] DROP CONSTRAINT [FK_ChatMessage];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserReport]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Reports] DROP CONSTRAINT [FK_UserReport];
 GO
 
 -- --------------------------------------------------
@@ -82,10 +79,10 @@ GO
 CREATE TABLE [dbo].[Reports] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Reason] nvarchar(max)  NOT NULL,
-    [message_Id] nvarchar(max)  NOT NULL,
-    [Reported_User_Id] nvarchar(max)  NOT NULL,
+    [MessageID] nvarchar(max)  NOT NULL,
+    [ReportedUserID] nvarchar(max)  NOT NULL,
     [Type] nvarchar(max)  NOT NULL,
-    [user_Id] nvarchar(max)  NOT NULL
+    [ReportingUserID] nvarchar(max)  NOT NULL
 );
 GO
 

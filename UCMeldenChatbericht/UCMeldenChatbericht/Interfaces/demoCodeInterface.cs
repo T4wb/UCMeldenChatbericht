@@ -9,6 +9,7 @@ namespace UCMeldenChatbericht.Interfaces
     {
         public List<String[]> getMessages()
         {
+            // let op: user_Id heeft hier betrekking op de message
             // message - user_Id - message_Id
             string[] testMessages = { "Je bent dom", "5", "1"}; // moet opgehaald worden uit db = delegate naar mensen die chat-component moeten maken.
             string[] testMessages1 = { "Ga naar je mama", "3", "2"};

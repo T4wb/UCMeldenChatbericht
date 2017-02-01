@@ -54,10 +54,10 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Reason" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="message_Id" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Reported_User_Id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MessageID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReportedUserID" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="user_Id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReportingUserID" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="UserChat">
     <Key>
@@ -162,10 +162,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Reason" Type="String" Nullable="false" />
-          <Property Name="message_Id" Type="String" Nullable="false" />
-          <Property Name="Reported_User_Id" Type="String" Nullable="false" />
+          <Property Name="MessageID" Type="String" Nullable="false" />
+          <Property Name="ReportedUserID" Type="String" Nullable="false" />
           <Property Name="Type" Type="String" Nullable="false" />
-          <Property Name="user_Id" Type="String" Nullable="false" />
+          <Property Name="ReportingUserID" Type="String" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -204,10 +204,10 @@
         <MappingFragment StoreEntitySet="Reports">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Reason" ColumnName="Reason" />
-          <ScalarProperty Name="message_Id" ColumnName="message_Id" />
-          <ScalarProperty Name="Reported_User_Id" ColumnName="Reported_User_Id" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="ReportedUserID" ColumnName="ReportedUserID" />
           <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+          <ScalarProperty Name="ReportingUserID" ColumnName="ReportingUserID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
