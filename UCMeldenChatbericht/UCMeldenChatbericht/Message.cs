@@ -7,25 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UCMeldenChatbericht
+namespace UCMeldenChatbericht.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class Message
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Message()
-        {
-            this.Report = new HashSet<Report>();
-        }
-    
         public int Id { get; set; }
         public string Content { get; set; }
         public System.DateTime TimeStamp { get; set; }
     
         public virtual Chat Chat { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Report> Report { get; set; }
     }
 }

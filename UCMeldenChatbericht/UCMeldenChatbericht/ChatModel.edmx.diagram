@@ -5,13 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a037bdbd46344fa9bc1c024a03aef584" Name="Diagram1" >
-        <EntityTypeShape EntityType="ChatModel.User" Width="1.5" PointX="2.375" PointY="2.625" />
-        <EntityTypeShape EntityType="ChatModel.Chat" Width="1.5" PointX="4.625" PointY="2.375" />
-        <EntityTypeShape EntityType="ChatModel.Message" Width="1.5" PointX="6.875" PointY="2.5" />
-        <AssociationConnector Association="ChatModel.UserChat" />
-        <AssociationConnector Association="ChatModel.ChatMessage" />
-        <EntityTypeShape EntityType="ChatModel.Report" Width="1.5" PointX="9.25" PointY="2.5" />
-        <AssociationConnector Association="ChatModel.MessageReport" />
+        <EntityTypeShape EntityType="UCMeldenChatbericht.Models.User" Width="1.5" PointX="2.375" PointY="2.625" />
+        <EntityTypeShape EntityType="UCMeldenChatbericht.Models.Chat" Width="1.5" PointX="4.625" PointY="2.375" />
+        <EntityTypeShape EntityType="UCMeldenChatbericht.Models.Message" Width="1.5" PointX="6.875" PointY="2.5" />
+        <AssociationConnector Association="UCMeldenChatbericht.Models.UserChat" />
+        <AssociationConnector Association="UCMeldenChatbericht.Models.ChatMessage" />
+        <EntityTypeShape EntityType="UCMeldenChatbericht.Models.Report" Width="1.5" PointX="2.25" PointY="5.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

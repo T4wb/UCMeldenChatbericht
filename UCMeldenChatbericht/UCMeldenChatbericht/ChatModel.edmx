@@ -4,28 +4,24 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ChatModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="ChatModelStoreContainer">
-    <EntitySet Name="UserSet" EntityType="ChatModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ChatSet" EntityType="ChatModel.Store.ChatSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="MessageSet" EntityType="ChatModel.Store.MessageSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Reports" EntityType="ChatModel.Store.Reports" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserChat" EntityType="ChatModel.Store.UserChat" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_UserChat_User" Association="ChatModel.Store.FK_UserChat_User">
+    <Schema Namespace="UCMeldenChatbericht.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="UCMeldenChatberichtModelsStoreContainer">
+    <EntitySet Name="UserSet" EntityType="UCMeldenChatbericht.Models.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ChatSet" EntityType="UCMeldenChatbericht.Models.Store.ChatSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MessageSet" EntityType="UCMeldenChatbericht.Models.Store.MessageSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reports" EntityType="UCMeldenChatbericht.Models.Store.Reports" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserChat" EntityType="UCMeldenChatbericht.Models.Store.UserChat" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_UserChat_User" Association="UCMeldenChatbericht.Models.Store.FK_UserChat_User">
       <End Role="User" EntitySet="UserSet" />
       <End Role="UserChat" EntitySet="UserChat" />
     </AssociationSet>
-    <AssociationSet Name="FK_UserChat_Chat" Association="ChatModel.Store.FK_UserChat_Chat">
+    <AssociationSet Name="FK_UserChat_Chat" Association="UCMeldenChatbericht.Models.Store.FK_UserChat_Chat">
       <End Role="Chat" EntitySet="ChatSet" />
       <End Role="UserChat" EntitySet="UserChat" />
     </AssociationSet>
-    <AssociationSet Name="ChatMessage" Association="ChatModel.Store.ChatMessage">
+    <AssociationSet Name="ChatMessage" Association="UCMeldenChatbericht.Models.Store.ChatMessage">
       <End Role="Chat" EntitySet="ChatSet" />
       <End Role="Message" EntitySet="MessageSet" />
-    </AssociationSet>
-    <AssociationSet Name="MessageReport" Association="ChatModel.Store.MessageReport">
-      <End Role="Message" EntitySet="MessageSet" />
-      <End Role="Report" EntitySet="Reports" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserSet">
@@ -57,10 +53,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Chatmessage" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ChatmessageSender" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Reason" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Message_Id" Type="int" Nullable="false" />
+    <Property Name="message_Id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Reported_User_Id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="user_Id" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="UserChat">
     <Key>
@@ -71,8 +68,8 @@
     <Property Name="Chat_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="ChatMessage">
-    <End Role="Chat" Type="ChatModel.Store.ChatSet" Multiplicity="1" />
-    <End Role="Message" Type="ChatModel.Store.MessageSet" Multiplicity="*" />
+    <End Role="Chat" Type="UCMeldenChatbericht.Models.Store.ChatSet" Multiplicity="1" />
+    <End Role="Message" Type="UCMeldenChatbericht.Models.Store.MessageSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Chat">
         <PropertyRef Name="Id" />
@@ -82,21 +79,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="MessageReport">
-    <End Role="Message" Type="ChatModel.Store.MessageSet" Multiplicity="1" />
-    <End Role="Report" Type="ChatModel.Store.Reports" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Message">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Report">
-        <PropertyRef Name="Message_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_UserChat_User">
-    <End Role="User" Type="ChatModel.Store.UserSet" Multiplicity="1" />
-    <End Role="UserChat" Type="ChatModel.Store.UserChat" Multiplicity="*" />
+    <End Role="User" Type="UCMeldenChatbericht.Models.Store.UserSet" Multiplicity="1" />
+    <End Role="UserChat" Type="UCMeldenChatbericht.Models.Store.UserChat" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -107,8 +92,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserChat_Chat">
-    <End Role="UserChat" Type="ChatModel.Store.UserChat" Multiplicity="*" />
-    <End Role="Chat" Type="ChatModel.Store.ChatSet" Multiplicity="1" />
+    <End Role="UserChat" Type="UCMeldenChatbericht.Models.Store.UserChat" Multiplicity="*" />
+    <End Role="Chat" Type="UCMeldenChatbericht.Models.Store.ChatSet" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Chat">
         <PropertyRef Name="Id" />
@@ -121,24 +106,20 @@
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ChatModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="UCMeldenChatbericht.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="ChatModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UserSet" EntityType="ChatModel.User" />
-          <EntitySet Name="ChatSet" EntityType="ChatModel.Chat" />
-          <EntitySet Name="MessageSet" EntityType="ChatModel.Message" />
-          <AssociationSet Name="UserChat" Association="ChatModel.UserChat">
+          <EntitySet Name="UserSet" EntityType="UCMeldenChatbericht.Models.User" />
+          <EntitySet Name="ChatSet" EntityType="UCMeldenChatbericht.Models.Chat" />
+          <EntitySet Name="MessageSet" EntityType="UCMeldenChatbericht.Models.Message" />
+          <AssociationSet Name="UserChat" Association="UCMeldenChatbericht.Models.UserChat">
             <End Role="User" EntitySet="UserSet" />
             <End Role="Chat" EntitySet="ChatSet" />
           </AssociationSet>
-          <AssociationSet Name="ChatMessage" Association="ChatModel.ChatMessage">
+          <AssociationSet Name="ChatMessage" Association="UCMeldenChatbericht.Models.ChatMessage">
             <End Role="Chat" EntitySet="ChatSet" />
             <End Role="Message" EntitySet="MessageSet" />
           </AssociationSet>
-          <EntitySet Name="Reports" EntityType="ChatModel.Report" />
-          <AssociationSet Name="MessageReport" Association="ChatModel.MessageReport">
-            <End Role="Message" EntitySet="MessageSet" />
-            <End Role="Report" EntitySet="Reports" />
-          </AssociationSet>
+          <EntitySet Name="Reports" EntityType="UCMeldenChatbericht.Models.Report" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -146,7 +127,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" Nullable="false" />
-          <NavigationProperty Name="Chat" Relationship="ChatModel.UserChat" FromRole="User" ToRole="Chat" />
+          <NavigationProperty Name="Chat" Relationship="UCMeldenChatbericht.Models.UserChat" FromRole="User" ToRole="Chat" />
         </EntityType>
         <EntityType Name="Chat">
           <Key>
@@ -155,8 +136,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ChatType" Type="String" Nullable="false" />
           <Property Name="ChatRoomName" Type="String" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="ChatModel.UserChat" FromRole="Chat" ToRole="User" />
-          <NavigationProperty Name="Message" Relationship="ChatModel.ChatMessage" FromRole="Chat" ToRole="Message" />
+          <NavigationProperty Name="User" Relationship="UCMeldenChatbericht.Models.UserChat" FromRole="Chat" ToRole="User" />
+          <NavigationProperty Name="Message" Relationship="UCMeldenChatbericht.Models.ChatMessage" FromRole="Chat" ToRole="Message" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -165,39 +146,35 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Content" Type="String" Nullable="false" />
           <Property Name="TimeStamp" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Chat" Relationship="ChatModel.ChatMessage" FromRole="Message" ToRole="Chat" />
-          <NavigationProperty Name="Report" Relationship="ChatModel.MessageReport" FromRole="Message" ToRole="Report" />
+          <NavigationProperty Name="Chat" Relationship="UCMeldenChatbericht.Models.ChatMessage" FromRole="Message" ToRole="Chat" />
         </EntityType>
         <Association Name="UserChat">
-          <End Type="ChatModel.User" Role="User" Multiplicity="*" />
-          <End Type="ChatModel.Chat" Role="Chat" Multiplicity="*" />
+          <End Type="UCMeldenChatbericht.Models.User" Role="User" Multiplicity="*" />
+          <End Type="UCMeldenChatbericht.Models.Chat" Role="Chat" Multiplicity="*" />
         </Association>
         <Association Name="ChatMessage">
-          <End Type="ChatModel.Chat" Role="Chat" Multiplicity="1" />
-          <End Type="ChatModel.Message" Role="Message" Multiplicity="*" />
+          <End Type="UCMeldenChatbericht.Models.Chat" Role="Chat" Multiplicity="1" />
+          <End Type="UCMeldenChatbericht.Models.Message" Role="Message" Multiplicity="*" />
         </Association>
         <EntityType Name="Report">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Message" Relationship="ChatModel.MessageReport" FromRole="Report" ToRole="Message" />
-          <Property Name="Chatmessage" Type="String" Nullable="false" />
-          <Property Name="ChatmessageSender" Type="String" Nullable="false" />
           <Property Name="Reason" Type="String" Nullable="false" />
+          <Property Name="message_Id" Type="String" Nullable="false" />
+          <Property Name="Reported_User_Id" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="user_Id" Type="String" Nullable="false" />
         </EntityType>
-        <Association Name="MessageReport">
-          <End Type="ChatModel.Message" Role="Message" Multiplicity="1" />
-          <End Type="ChatModel.Report" Role="Report" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ChatModelStoreContainer" CdmEntityContainer="ChatModelContainer">
+  <EntityContainerMapping StorageEntityContainer="UCMeldenChatberichtModelsStoreContainer" CdmEntityContainer="ChatModelContainer">
     <EntitySetMapping Name="UserSet">
-      <EntityTypeMapping TypeName="IsTypeOf(ChatModel.User)">
+      <EntityTypeMapping TypeName="IsTypeOf(UCMeldenChatbericht.Models.User)">
         <MappingFragment StoreEntitySet="UserSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Username" ColumnName="Username" />
@@ -205,7 +182,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ChatSet">
-      <EntityTypeMapping TypeName="IsTypeOf(ChatModel.Chat)">
+      <EntityTypeMapping TypeName="IsTypeOf(UCMeldenChatbericht.Models.Chat)">
         <MappingFragment StoreEntitySet="ChatSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ChatType" ColumnName="ChatType" />
@@ -214,7 +191,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="MessageSet">
-      <EntityTypeMapping TypeName="IsTypeOf(ChatModel.Message)">
+      <EntityTypeMapping TypeName="IsTypeOf(UCMeldenChatbericht.Models.Message)">
         <MappingFragment StoreEntitySet="MessageSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Content" ColumnName="Content" />
@@ -223,16 +200,18 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Reports">
-      <EntityTypeMapping TypeName="IsTypeOf(ChatModel.Report)">
+      <EntityTypeMapping TypeName="IsTypeOf(UCMeldenChatbericht.Models.Report)">
         <MappingFragment StoreEntitySet="Reports">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Chatmessage" ColumnName="Chatmessage" />
-          <ScalarProperty Name="ChatmessageSender" ColumnName="ChatmessageSender" />
           <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="message_Id" ColumnName="message_Id" />
+          <ScalarProperty Name="Reported_User_Id" ColumnName="Reported_User_Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="user_Id" ColumnName="user_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="UserChat" TypeName="ChatModel.UserChat" StoreEntitySet="UserChat">
+    <AssociationSetMapping Name="UserChat" TypeName="UCMeldenChatbericht.Models.UserChat" StoreEntitySet="UserChat">
       <EndProperty Name="User">
         <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>
@@ -240,19 +219,11 @@
         <ScalarProperty Name="Id" ColumnName="Chat_Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ChatMessage" TypeName="ChatModel.ChatMessage" StoreEntitySet="MessageSet">
+    <AssociationSetMapping Name="ChatMessage" TypeName="UCMeldenChatbericht.Models.ChatMessage" StoreEntitySet="MessageSet">
       <EndProperty Name="Chat">
         <ScalarProperty Name="Id" ColumnName="Chat_Id" />
       </EndProperty>
       <EndProperty Name="Message">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="MessageReport" TypeName="ChatModel.MessageReport" StoreEntitySet="Reports">
-      <EndProperty Name="Message">
-        <ScalarProperty Name="Id" ColumnName="Message_Id" />
-      </EndProperty>
-      <EndProperty Name="Report">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

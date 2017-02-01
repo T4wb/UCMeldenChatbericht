@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UCMeldenChatbericht
+namespace UCMeldenChatbericht.Models
 {
     using System;
     using System.Data.Entity;

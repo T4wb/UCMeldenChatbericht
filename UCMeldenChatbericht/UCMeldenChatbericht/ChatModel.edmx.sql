@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/27/2017 13:17:34
+-- Date Created: 02/01/2017 00:46:28
 -- Generated from EDMX file: C:\Users\Lenovo\Source\Repos\UCMeldenChatbericht\UCMeldenChatbericht\UCMeldenChatbericht\ChatModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [GameCartagena];
+USE [CasusB2D3Database];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,11 +17,38 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserChat_User]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserChat] DROP CONSTRAINT [FK_UserChat_User];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserChat_Chat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserChat] DROP CONSTRAINT [FK_UserChat_Chat];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ChatMessage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MessageSet] DROP CONSTRAINT [FK_ChatMessage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserReport]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Reports] DROP CONSTRAINT [FK_UserReport];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserSet];
+GO
+IF OBJECT_ID(N'[dbo].[ChatSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ChatSet];
+GO
+IF OBJECT_ID(N'[dbo].[MessageSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MessageSet];
+GO
+IF OBJECT_ID(N'[dbo].[Reports]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Reports];
+GO
+IF OBJECT_ID(N'[dbo].[UserChat]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserChat];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -54,10 +81,11 @@ GO
 -- Creating table 'Reports'
 CREATE TABLE [dbo].[Reports] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Chatmessage] nvarchar(max)  NOT NULL,
-    [ChatmessageSender] nvarchar(max)  NOT NULL,
     [Reason] nvarchar(max)  NOT NULL,
-    [Message_Id] int  NOT NULL
+    [message_Id] nvarchar(max)  NOT NULL,
+    [Reported_User_Id] nvarchar(max)  NOT NULL,
+    [Type] nvarchar(max)  NOT NULL,
+    [user_Id] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -143,21 +171,6 @@ GO
 CREATE INDEX [IX_FK_ChatMessage]
 ON [dbo].[MessageSet]
     ([Chat_Id]);
-GO
-
--- Creating foreign key on [Message_Id] in table 'Reports'
-ALTER TABLE [dbo].[Reports]
-ADD CONSTRAINT [FK_MessageReport]
-    FOREIGN KEY ([Message_Id])
-    REFERENCES [dbo].[MessageSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_MessageReport'
-CREATE INDEX [IX_FK_MessageReport]
-ON [dbo].[Reports]
-    ([Message_Id]);
 GO
 
 -- --------------------------------------------------

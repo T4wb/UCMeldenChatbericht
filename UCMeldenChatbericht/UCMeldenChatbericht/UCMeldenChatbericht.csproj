@@ -197,12 +197,14 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ChatModel.Context.cs</LastGenOutput>
       <DependentUpon>ChatModel.edmx</DependentUpon>
+      <CustomToolNamespace>UCMeldenChatbericht.Models</CustomToolNamespace>
     </Content>
     <Content Include="ChatModel.edmx.sql" />
     <Content Include="ChatModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ChatModel.cs</LastGenOutput>
       <DependentUpon>ChatModel.edmx</DependentUpon>
+      <CustomToolNamespace>UCMeldenChatbericht.Models</CustomToolNamespace>
     </Content>
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
@@ -216,6 +218,7 @@
     <EntityDeploy Include="ChatModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ChatModel.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>UCMeldenChatbericht.Models</CustomToolNamespace>
     </EntityDeploy>
     <Content Include="ChatModel.edmx.diagram">
       <DependentUpon>ChatModel.edmx</DependentUpon>
@@ -255,6 +258,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Views\MeldenChatberichtUI.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
@@ -411,6 +415,7 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\MeldenChatberichtCC.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -421,10 +426,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\demoCodeInterface.cs" />
+    <Compile Include="Interfaces\IChat.cs" />
     <Compile Include="Message.cs">
       <DependentUpon>ChatModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report.cs">
       <DependentUpon>ChatModel.tt</DependentUpon>
@@ -454,10 +462,16 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Views\MeldenChatberichtUI.aspx.cs">
+      <DependentUpon>MeldenChatberichtUI.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\MeldenChatberichtUI.aspx.designer.cs">
+      <DependentUpon>MeldenChatberichtUI.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UCMeldenChatbericht
+namespace UCMeldenChatbericht.Models
 {
     using System;
     using System.Collections.Generic;
@@ -15,10 +15,10 @@ namespace UCMeldenChatbericht
     public partial class Report
     {
         public int Id { get; set; }
-        public string Chatmessage { get; set; }
-        public string ChatmessageSender { get; set; }
         public string Reason { get; set; }
-    
-        public virtual Message Message { get; set; }
+        public string message_Id { get; set; }
+        public string Reported_User_Id { get; set; }
+        public string Type { get; set; }
+        public string user_Id { get; set; }
     }
 }
