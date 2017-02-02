@@ -14,17 +14,15 @@ namespace UCMeldenChatbericht.Views
     {
         //
         List<string[]> chatMessages;
-        Dictionary<String, String> inputUser;
         MeldenChatberichtCC meldenChatBerichtCC;
         
         // 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 
-            meldenChatBerichtCC = new MeldenChatberichtCC();
-
+            //
             if (!Page.IsPostBack)
             {
+                meldenChatBerichtCC = new MeldenChatberichtCC();
                 // store chatMessages van CC
                 chatMessages = meldenChatBerichtCC.showMessages();
 
@@ -34,24 +32,18 @@ namespace UCMeldenChatbericht.Views
                 ddMessage.DataBind();
                 ddMessage.Items.Insert(0, new ListItem("Select an Item", ""));
 
-                // inputUser
-                inputUser = new Dictionary<string, string>()
-                {
-                    { "ReportingUserID", ""}, // Deze is niet weg te schrijven naar de db. Haal hierbij User uit db; zie Report.cs + verwijder dit element
-                    { "MessageID", ""},
-                    { "Reason", ""},
-                    { "ReportedUserID", ""},
-                    { "Type", ""},
-                };
+                //
+                meldenChatBerichtCC.requestCreateInputUser();
 
                 // Viewstates
-                ViewState.Add("inputUser", inputUser);
+                //ViewState.Add("inputUser", inputUser);
+                ViewState.Add("meldenChatBerichtCC", meldenChatBerichtCC);
                 ViewState.Add("chatMessages", chatMessages);
             }
             else
             {
                 // get stored data and overwrite all variables
-                inputUser = (Dictionary<String, String>)ViewState["inputUser"];
+                meldenChatBerichtCC = (MeldenChatberichtCC)ViewState["meldenChatBerichtCC"];
                 chatMessages = (List<string[]>)ViewState["chatMessages"];
             }
         }
@@ -65,26 +57,14 @@ namespace UCMeldenChatbericht.Views
         // 
         protected void selectSubmitReport(object sender, EventArgs e)
         {
-            bool ddMessagetbReasonValue = false;
-
-            // Checks
-            if (ddMessage.SelectedIndex == 0)
-            {
-                // Melding: No ddMessage is selected!
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No user has been selected. Please select one.')", true);
-            }
-            else if (string.IsNullOrWhiteSpace(tbReason.Text))
-            {
-                // Melding: Reason is Empty!
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No reason has been given. Please write one down.')", true);
-            }
-            else
+            if (checkddMessageReason())
             {
                 // setInputUser()
-                setInputUser();
+                meldenChatBerichtCC.requestSetInputUser(chatMessages, ddMessage, tbReason);
+                
 
                 // send Report van CC
-                bool createReportStatus = meldenChatBerichtCC.sendReport(inputUser);
+                bool createReportStatus = meldenChatBerichtCC.sendReport();
 
                 // alertboxes komen hier
                 if (createReportStatus)
@@ -93,18 +73,30 @@ namespace UCMeldenChatbericht.Views
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Writing to DB failed. Please try again or contact an employee.')", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Writing to the DB server failed. Please try again or contact an employee.')", true);
                 }
             }
         }
 
-        private void setInputUser()
+        // Checks
+        private bool checkddMessageReason()
         {
-            inputUser["ReportingUserID"] = "999"; // To Do: Ophalen uit sessie?
-            inputUser["MessageID"] = chatMessages[ddMessage.SelectedIndex - 1][2];
-            inputUser["Reason"] = tbReason.Text;
-            inputUser["Type"] = "Chatbericht";
-            inputUser["ReportedUserID"] = chatMessages[ddMessage.SelectedIndex - 1][1];
+            //
+            bool nonEmptySelection = true;
+
+            if (ddMessage.SelectedIndex == 0)
+            {
+                // Melding: No ddMessage is selected!
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No user has been selected. Please select one.')", true);
+                nonEmptySelection = false;
+            }
+            else if (string.IsNullOrWhiteSpace(tbReason.Text))
+            {
+                // Melding: Reason is Empty!
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No reason has been given. Please write one down.')", true);
+                nonEmptySelection = false;
+            }
+            return nonEmptySelection;
         }
     }
 }

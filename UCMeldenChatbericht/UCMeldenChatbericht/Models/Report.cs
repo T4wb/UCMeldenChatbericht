@@ -8,9 +8,50 @@ namespace UCMeldenChatbericht.Models
 {
     public partial class Report
     {
+        //
+        Dictionary<String, String> inputUser;
+        public void createInputUser()
+        {
+            inputUser = new Dictionary<string, string>()
+                {
+                    { "ReportingUserID", ""}, // Deze is niet weg te schrijven naar de db. Haal hierbij User uit db; zie Report.cs + verwijder dit element
+                    { "MessageID", ""},
+                    { "Reason", ""},
+                    { "ReportedUserID", ""},
+                    { "Type", ""},
+                };
+        }
+
+        public void setInputUser(List<string[]> v1,string  v2, string text)
+        {
+            inputUser["ReportingUserID"] = "999"; // To Do: Ophalen uit sessie?
+            inputUser["MessageID"] = v1;
+            inputUser["Reason"] = text;
+            inputUser["Type"] = "Chatbericht";
+            inputUser["ReportedUserID"] = v2;
+        }
+
         // In Production code: IUser Iuser = new ImplementedInterfaceName();
 
         // accessors & mutators
+        public bool createReport()
+        {
+            //
+            bool createReportStatus = true;
+
+            // setReport
+            setReport(inputUser);
+
+            // checkReport
+            createReportStatus = checkReport(createReportStatus);
+
+            if (createReportStatus)
+            {
+                createReportStatus = writeToDBReport(createReportStatus);
+            }
+            return createReportStatus;
+        }
+
         private void setReport(Dictionary<String, String> inputUser)
         {
             // In Production Code: using Iuser to get Account object:
@@ -28,28 +69,12 @@ namespace UCMeldenChatbericht.Models
             ReportedUserID = inputUser["ReportedUserID"];
             Type = inputUser["Type"];
         }
-        public bool createReport(Dictionary<String, String> inputUser)
-        {
-            //
-            bool createReportStatus = true;
 
-            // setReport
-            setReport(inputUser);
 
-            //
-            createReportStatus = checkReport(createReportStatus);
-
-            if (createReportStatus)
-            {
-                createReportStatus = writeToDBReport(createReportStatus);
-            }
-            return createReportStatus;
-        }
-
-        // DB controle
+        // DB controle: Check every property except id and ReportedUserID
         private bool checkReport(bool createReportStatus)
         {
-            // Check every property except id and ReportedUserID
+            
             List<PropertyInfo> properties = (typeof(Report).GetProperties()).ToList();
             properties.Remove(properties[0]); // To Do: Hierbij ook verwijderen: ReportedUserID; maar dan uit de inputUser List<string> deze wordt bovenaan los gekoppeld met de property Account. Controle op NULL blijft!
 
