@@ -29,19 +29,9 @@ namespace UCMeldenChatbericht.Controllers
             return createReportStatus;
         }
 
-        public void requestSetInputUser(string v1, string v2, string text)
+        public void requestSetInputUser(List<string[]> chatMessages, DropDownList ddMessage, TextBox tbReason)
         {
-            report.setInputUser(string v1, string v2, string text);
-        }
-
-        internal void requestSetInputUser(List<string[]> chatMessages, DropDownList ddMessage, string text)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void requestSetInputUser(List<string[]> chatMessages, DropDownList ddMessage, TextBox tbReason)
-        {
-            throw new NotImplementedException();
+            report.setInputUser(chatMessages, ddMessage, tbReason);
         }
     }
 }

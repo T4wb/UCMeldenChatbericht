@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace UCMeldenChatbericht.Models
 {
@@ -11,9 +12,9 @@ namespace UCMeldenChatbericht.Models
         //
         InputUser inputUser = new InputUser();
 
-        public void setInputUser(List<string[]> v1,string  v2, string text)
+        public void setInputUser(List<string[]> chatMessages, DropDownList ddMessage, TextBox tbReason)
         {
-            inputUser.setInputUser(List < string[] > v1, string  v2, string text);
+            inputUser.setInputUser(chatMessages, ddMessage, tbReason);
         }
 
         // In Production code: IUser Iuser = new ImplementedInterfaceName();
@@ -37,7 +38,7 @@ namespace UCMeldenChatbericht.Models
             return createReportStatus;
         }
 
-        private void setReport(Dictionary<String, String> inputUser)
+        private void setReport(InputUser inputUser)
         {
             // In Production Code: using Iuser to get Account object:
             // int tempReportingUserID
@@ -48,11 +49,11 @@ namespace UCMeldenChatbericht.Models
             //}
 
             // 
-            ReportingUserID = inputUser["ReportingUserID"]; // In production code: see above
-            MessageID = inputUser["MessageID"];
-            Reason = inputUser["Reason"];
-            ReportedUserID = inputUser["ReportedUserID"];
-            Type = inputUser["Type"];
+            ReportingUserID = inputUser.getInputUser()["ReportingUserID"]; // In production code: see above
+            MessageID = inputUser.getInputUser()["MessageID"];
+            Reason = inputUser.getInputUser()["Reason"];
+            ReportedUserID = inputUser.getInputUser()["ReportedUserID"];
+            Type = inputUser.getInputUser()["Type"];
         }
 
 
