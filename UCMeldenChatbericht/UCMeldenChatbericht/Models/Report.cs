@@ -11,23 +11,6 @@ namespace UCMeldenChatbericht.Models
         // In Production code: IUser Iuser = new ImplementedInterfaceName();
 
         // accessors & mutators
-        private void setReport(Dictionary<String, String> inputUser)
-        {
-            // In Production Code: using Iuser to get Account object:
-            // int tempReportingUserID
-            // bool parsed = Int32.TryParse(inputUser["ReportingUserID"], out tempReportingUserID);
-            //if (parsed)
-            //{
-            //   Account = implementedInterface.getAccount(tempReportingUserID) // Let op: controleer propertynaam
-            //}
-
-            // 
-            ReportingUserID = inputUser["ReportingUserID"]; // In production code: see above
-            MessageID = inputUser["MessageID"];
-            Reason = inputUser["Reason"];
-            ReportedUserID = inputUser["ReportedUserID"];
-            Type = inputUser["Type"];
-        }
         public bool createReport(Dictionary<String, String> inputUser)
         {
             //
@@ -44,6 +27,24 @@ namespace UCMeldenChatbericht.Models
                 createReportStatus = writeToDBReport(createReportStatus);
             }
             return createReportStatus;
+        }
+
+        private void setReport(Dictionary<String, String> inputUser)
+        {
+            // In Production Code: using Iuser to get Account object:
+            // int tempReportingUserID
+            // bool parsed = Int32.TryParse(inputUser["ReportingUserID"], out tempReportingUserID);
+            //if (parsed)
+            //{
+            //   Account = implementedInterface.getAccount(tempReportingUserID) // Let op: controleer propertynaam
+            //}
+
+            // 
+            ReportingUserID = inputUser["ReportingUserID"]; // In production code: see above
+            MessageID = inputUser["MessageID"];
+            Reason = inputUser["Reason"];
+            ReportedUserID = inputUser["ReportedUserID"];
+            Type = inputUser["Type"];
         }
 
         // DB controle

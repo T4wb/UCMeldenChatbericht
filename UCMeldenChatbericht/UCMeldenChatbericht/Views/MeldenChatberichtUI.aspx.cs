@@ -65,20 +65,7 @@ namespace UCMeldenChatbericht.Views
         // 
         protected void selectSubmitReport(object sender, EventArgs e)
         {
-            bool ddMessagetbReasonValue = false;
-
-            // Checks
-            if (ddMessage.SelectedIndex == 0)
-            {
-                // Melding: No ddMessage is selected!
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No user has been selected. Please select one.')", true);
-            }
-            else if (string.IsNullOrWhiteSpace(tbReason.Text))
-            {
-                // Melding: Reason is Empty!
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No reason has been given. Please write one down.')", true);
-            }
-            else
+            if (checkddMessageReason())
             {
                 // setInputUser()
                 setInputUser();
@@ -96,6 +83,27 @@ namespace UCMeldenChatbericht.Views
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Writing to DB failed. Please try again or contact an employee.')", true);
                 }
             }
+        }
+
+        // Checks
+        private bool checkddMessageReason()
+        {
+            //
+            bool nonEmptySelection = true;
+
+            if (ddMessage.SelectedIndex == 0)
+            {
+                // Melding: No ddMessage is selected!
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No user has been selected. Please select one.')", true);
+                nonEmptySelection = false;
+            }
+            else if (string.IsNullOrWhiteSpace(tbReason.Text))
+            {
+                // Melding: Reason is Empty!
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No reason has been given. Please write one down.')", true);
+                nonEmptySelection = false;
+            }
+            return nonEmptySelection;
         }
 
         private void setInputUser()
