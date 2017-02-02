@@ -29,11 +29,6 @@ namespace UCMeldenChatbericht.Controllers
             return createReportStatus;
         }
 
-        public void requestCreateInputUser()
-        {
-            report.createInputUser();
-        }
-
         public void requestSetInputUser(string v1, string v2, string text)
         {
             report.setInputUser(string v1, string v2, string text);

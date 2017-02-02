@@ -9,26 +9,11 @@ namespace UCMeldenChatbericht.Models
     public partial class Report
     {
         //
-        Dictionary<String, String> inputUser;
-        public void createInputUser()
-        {
-            inputUser = new Dictionary<string, string>()
-                {
-                    { "ReportingUserID", ""}, // Deze is niet weg te schrijven naar de db. Haal hierbij User uit db; zie Report.cs + verwijder dit element
-                    { "MessageID", ""},
-                    { "Reason", ""},
-                    { "ReportedUserID", ""},
-                    { "Type", ""},
-                };
-        }
+        InputUser inputUser = new InputUser();
 
         public void setInputUser(List<string[]> v1,string  v2, string text)
         {
-            inputUser["ReportingUserID"] = "999"; // To Do: Ophalen uit sessie?
-            inputUser["MessageID"] = v1;
-            inputUser["Reason"] = text;
-            inputUser["Type"] = "Chatbericht";
-            inputUser["ReportedUserID"] = v2;
+            inputUser.setInputUser(List < string[] > v1, string  v2, string text);
         }
 
         // In Production code: IUser Iuser = new ImplementedInterfaceName();

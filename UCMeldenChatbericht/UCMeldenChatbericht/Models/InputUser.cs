@@ -19,5 +19,14 @@ namespace UCMeldenChatbericht.Models
                     { "Type", ""},
                 };
         }
+
+        public void setInputUser(List<string[]> v1, string v2, string text)
+        {
+            inputUser["ReportingUserID"] = "999"; // To Do: Ophalen uit sessie?
+            inputUser["MessageID"] = v1;
+            inputUser["Reason"] = text;
+            inputUser["Type"] = "Chatbericht";
+            inputUser["ReportedUserID"] = v2;
+        }
     }
 }

@@ -32,9 +32,6 @@ namespace UCMeldenChatbericht.Views
                 ddMessage.DataBind();
                 ddMessage.Items.Insert(0, new ListItem("Select an Item", ""));
 
-                //
-                meldenChatBerichtCC.requestCreateInputUser();
-
                 // Viewstates
                 //ViewState.Add("inputUser", inputUser);
                 ViewState.Add("meldenChatBerichtCC", meldenChatBerichtCC);
